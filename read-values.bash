@@ -13,9 +13,11 @@ if [ ${#FILES[@]} -eq 0 ]; then
 fi
 
 MERGED=$(yq eval '.' "${FILES[0]}")
+echo "Read file: ${FILES[0]}" >&2
 
 # Merge each subsequent file
 for ((i=1; i<${#FILES[@]}; i++)); do
+  echo "Read file: ${FILES[i]}" >&2
   MERGED=$(echo "$MERGED" | yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' - "${FILES[i]}")
 done
 
@@ -33,6 +35,8 @@ for out in "$@"; do
   KEY="${KEY%%+([[:space:]])}"
   EXPR="${EXPR##+([[:space:]])}"
   EXPR="${EXPR%%+([[:space:]])}"
+
+  echo "Parsed expression: key is '${KEY}', value is '${EXPR}'" >&2
 
   VALUE=$(echo "$MERGED" | yq eval "$EXPR" -)
   echo "${KEY}=${VALUE}"

@@ -37,5 +37,5 @@ runs:
           EXPRS+=("$line")
         done <<< "${{ inputs.output }}"
         
-        ${{ github.action_path }}/read-values.bash $EXPRS <<< "${{ inputs.values }}" >> "$GITHUB_OUTPUT"
+        ${{ github.action_path }}/read-values.bash "${EXPRS[@]}" <<< "${{ inputs.values }}" >> "$GITHUB_OUTPUT"
 
