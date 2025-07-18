@@ -5,10 +5,9 @@ description:
   Because of dynamic nature of output variables, they are written to $GITHUB_OUTPUT.
   So no output is defined in this action
 inputs:
-  path:
+  working-directory:
     description: Base directory for values files
     required: false
-    default: '.'
   values:
     description: List of values files, separated by newline
     required: true
@@ -30,6 +29,7 @@ runs:
     - name: Extract Helm values
       id: extract
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         EXPRS=()
         while IFS= read -r line; do
@@ -37,4 +37,5 @@ runs:
           EXPRS+=("$line")
         done <<< "${{ inputs.output }}"
         
-        ${{ github.action_path }}/read-values.bash <<< "${{ inputs.values_files }}" >> "$GITHUB_OUTPUT"
+        ${{ github.action_path }}/read-values.bash $EXPRS <<< "${{ inputs.values }}" >> "$GITHUB_OUTPUT"
+

@@ -28,7 +28,7 @@ for out in "$@"; do
 
   IFS='=' read -r KEY EXPR <<< "$out"
 
-  # trim surronding whitespace
+  # trim surrounding whitespace
   KEY="${KEY##+([[:space:]])}"
   KEY="${KEY%%+([[:space:]])}"
   EXPR="${EXPR##+([[:space:]])}"
