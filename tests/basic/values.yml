@@ -1,0 +1,5 @@
+appName: default
+
+nginx:
+  host: example.org
+

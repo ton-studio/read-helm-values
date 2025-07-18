@@ -1,0 +1,4 @@
+appName: default
+
+nginx:
+  host: ton.org

@@ -1,0 +1,16 @@
+on:
+  push:
+
+jobs:
+  case-basic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./
+        with:
+          path: ./tests
+          values: |
+            values.yml
+            values-override.yml
+          output: |
+            app_name = .appName
+            host = .nginx.host
