@@ -1,9 +1,9 @@
 name: Read Helm Values
+branding:
+  icon: arrow-down-left
+  color: gray-dark
 description:
-  Given list of values.yaml files, it will read specified variables from the merged result.
-  
-  Because of dynamic nature of output variables, they are written to $GITHUB_OUTPUT.
-  So no output is defined in this action
+  Given a list of values.yaml files, it will read specified expressions from the merged result to $GITHUB_OUTPUT
 inputs:
   working-directory:
     description: Base directory for values files
