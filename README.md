@@ -24,7 +24,7 @@ Basically, evaluated expressions are written to `$GITHUB_OUTPUT`
 See [test.yml](.github/workflows/test.yml)
 
 ```yaml
-- uses: klpx/read-helm-values@v1
+- uses: ton-studio/read-helm-values@v3
   id: execute
   with:
     working-directory: ./tests/basic/
