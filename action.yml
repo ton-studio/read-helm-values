@@ -3,7 +3,7 @@ branding:
   icon: arrow-down-left
   color: gray-dark
 description:
-  Given a list of values.yaml files, it will read specified expressions from the merged result to the `json` output
+  Given a list of values.yaml files, it will read specified expressions from the merged result to $GITHUB_OUTPUT
 inputs:
   working-directory:
     description: Base directory for values files
@@ -14,10 +14,6 @@ inputs:
   output:
     description: Key-values list of variables to read, format is `key=.yq.expression`, each pair is on new line
     required: true
-outputs:
-  json:
-    value: ${{ steps.extract.outputs }}
-    description: JSON object with desired variables
 runs:
   using: docker
   image: ./Dockerfile
