@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: execute
-        uses: klpx/read-helm-value@v1
+        uses: klpx/read-helm-values@v1
         id: execute
         with:
           working-directory: ./tests/basic/
