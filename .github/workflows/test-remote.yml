@@ -1,0 +1,33 @@
+on:
+  push:
+
+jobs:
+  case-basic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: execute
+        uses: ton-studio/read-helm-values@v3
+        id: execute
+        with:
+          working-directory: ./tests/basic/
+          values: |
+            values.yml
+            values-override.yml
+          output: |
+            app_name = .appName
+            host = .nginx.host
+
+      - name: validate result (app_name)
+        uses: nick-fields/assert-action@v2
+        with:
+          expected: default
+          actual: ${{ steps.execute.outputs.app_name }}
+
+      - name: validate result (host)
+        uses: nick-fields/assert-action@v2
+        with:
+          expected: ton.org
+          actual: ${{ steps.execute.outputs.host }}

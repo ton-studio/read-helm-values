@@ -7,6 +7,6 @@ RUN wget https://github.com/mikefarah/yq/releases/download/v4.46.1/yq_linux_amd6
 RUN chmod +x /usr/local/bin/yq
 
 WORKDIR /action/workspace
-COPY entrypoint.sh ./
-COPY read-values.sh ./
-ENTRYPOINT ["./entrypoint.sh"]
+COPY entrypoint.sh /entrypoint.sh
+COPY read-values.sh /read-values.sh
+ENTRYPOINT ["/entrypoint.sh"]

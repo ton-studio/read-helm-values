@@ -12,4 +12,4 @@ while IFS= read -r line; do
   EXPRS+=("$line")
 done <<< "$outputs"
 
-/action/workspace/read-values.sh "${EXPRS[@]}" <<< "$values" >> "$GITHUB_OUTPUT"
+/read-values.sh "${EXPRS[@]}" <<< "$values" >> "$GITHUB_OUTPUT"
