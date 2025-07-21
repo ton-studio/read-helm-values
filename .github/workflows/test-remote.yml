@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: execute
-        uses: ton-studio/read-helm-values@v3
+        uses: ton-studio/read-helm-values@v4
         id: execute
         with:
           working-directory: ./tests/basic/
