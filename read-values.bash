@@ -21,6 +21,8 @@ for ((i=1; i<${#FILES[@]}; i++)); do
   MERGED=$(echo "$MERGED" | yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' - "${FILES[i]}")
 done
 
+echo "Merged values: " >&2
+echo ${MERGED} >&2
 
 # Each argument format:
 #   key = .yq.expression (spaces around '=' are optional)
