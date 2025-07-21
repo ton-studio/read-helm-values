@@ -3,7 +3,7 @@ branding:
   icon: arrow-down-left
   color: gray-dark
 description:
-  Given a list of values.yaml files, it will read specified expressions from the merged result to $GITHUB_OUTPUT
+  Given a list of values.yaml files, it will read specified expressions from the merged result to the `json` output
 inputs:
   working-directory:
     description: Base directory for values files
@@ -14,28 +14,14 @@ inputs:
   output:
     description: Key-values list of variables to read, format is `key=.yq.expression`, each pair is on new line
     required: true
+outputs:
+  json:
+    value: ${{ steps.extract.outputs }}
+    description: JSON object with desired variables
 runs:
-  using: composite
-  steps:
-    - name: Install yq
-      shell: bash
-      run: |
-        set -e
-        if ! command -v yq &> /dev/null; then
-          wget https://github.com/mikefarah/yq/releases/download/v4.46.1/yq_linux_amd64 -O /usr/local/bin/yq
-          chmod +x /usr/local/bin/yq
-        fi
-
-    - name: Extract Helm values
-      id: extract
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
-      run: |
-        EXPRS=()
-        while IFS= read -r line; do
-          [[ -z "$line" ]] && continue
-          EXPRS+=("$line")
-        done <<< "${{ inputs.output }}"
-        
-        ${{ github.action_path }}/read-values.bash "${EXPRS[@]}" <<< "${{ inputs.values }}" >> "$GITHUB_OUTPUT"
-
+  using: docker
+  image: ./Dockerfile
+  args:
+    - ${{ inputs.working-directory }}
+    - ${{ inputs.values }}
+    - ${{ inputs.output }}
