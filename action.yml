@@ -16,7 +16,7 @@ inputs:
     required: true
 runs:
   using: docker
-  image: docker://ghcr.io/ton-studio/read-helm-values:v5
+  image: docker://ghcr.io/ton-studio/read-helm-values:v6
   args:
     - ${{ inputs.working-directory }}
     - ${{ inputs.values }}
